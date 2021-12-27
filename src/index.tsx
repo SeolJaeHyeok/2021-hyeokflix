@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import App from "./App";
 import { theme } from "./theme";
@@ -62,9 +63,7 @@ body {
   font-weight: 400;
   font-family: 'Source Sans Pro', sans-serif;
   color:black;
-  line-height: 1.2;
-  height: 200vh;
-  
+  line-height: 1.2; 
 }
 a {
   text-decoration:none;
@@ -72,13 +71,17 @@ a {
 }
 `;
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
     </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root")
